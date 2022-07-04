@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathematicalProgramming", "MathematicalProgramming\MathematicalProgramming.csproj", "{99D5F8FF-60D0-45B8-9643-D38F16CD736A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Playground", "Playground\Playground.csproj", "{EE5D5234-A719-4B7B-811A-B67A70B10FB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathematicalProgrammingCplex", "MathematicalProgrammingCplex\MathematicalProgrammingCplex.csproj", "{4C1306F3-4E77-499B-9489-A393B335D023}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99D5F8FF-60D0-45B8-9643-D38F16CD736A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99D5F8FF-60D0-45B8-9643-D38F16CD736A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99D5F8FF-60D0-45B8-9643-D38F16CD736A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99D5F8FF-60D0-45B8-9643-D38F16CD736A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE5D5234-A719-4B7B-811A-B67A70B10FB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE5D5234-A719-4B7B-811A-B67A70B10FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE5D5234-A719-4B7B-811A-B67A70B10FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE5D5234-A719-4B7B-811A-B67A70B10FB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C1306F3-4E77-499B-9489-A393B335D023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C1306F3-4E77-499B-9489-A393B335D023}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C1306F3-4E77-499B-9489-A393B335D023}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C1306F3-4E77-499B-9489-A393B335D023}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6175A9D5-E1F5-4FEB-8943-B25C2E9B5E5F}
+	EndGlobalSection
+EndGlobal
