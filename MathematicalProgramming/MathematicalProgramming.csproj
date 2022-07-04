@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -10,6 +10,7 @@
     <Description>Expressive mathematical programming library.</Description>
     <PackageTags>Mathematical, Programming, Optimization, MIP, LP</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/mostlyfun/MathematicalProgramming</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

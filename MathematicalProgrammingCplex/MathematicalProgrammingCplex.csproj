@@ -5,6 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>mostlyfun</Authors>
+    <Company>mostlyfun</Company>
+    <PackageProjectUrl>https://github.com/mostlyfun/MathematicalProgramming</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
