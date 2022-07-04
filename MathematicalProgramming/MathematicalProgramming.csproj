@@ -9,6 +9,7 @@
     <Company>mostlyfun</Company>
     <Description>Expressive mathematical programming library.</Description>
     <PackageTags>Mathematical, Programming, Optimization, MIP, LP</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>

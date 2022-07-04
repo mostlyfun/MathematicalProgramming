@@ -8,14 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Fun.Pipe" Version="0.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MathematicalProgrammingCplex\MathematicalProgrammingCplex.csproj" />
     <ProjectReference Include="..\MathematicalProgramming\MathematicalProgramming.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Fun.Pipe">
-      <HintPath>..\..\..\fun-pipe-csharp\src\Fun.Pipe\Fun.Pipe\bin\Debug\net6.0\Fun.Pipe.dll</HintPath>
-    </Reference>
     <Reference Include="ILOG.Concert">
       <HintPath>..\..\..\dotnet\cplex-lib\ILOG.Concert.dll</HintPath>
     </Reference>
