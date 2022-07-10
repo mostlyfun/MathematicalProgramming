@@ -72,6 +72,9 @@ public class LpBuilder : ModelBuilder<StringBuilder, StringBuilder, string>
     }
     protected internal override void AddTermToConstr(StringBuilder constraint, double coefficient, string var)
     {
+        if (coefficient == 0)
+            return;
+
         if (constraint.Length < 2)
         {
             if (coefficient == 1)
@@ -298,6 +301,99 @@ public class LpBuilder : ModelBuilder<StringBuilder, StringBuilder, string>
                     throw new NotImplementedException();
             }
         }
+        model.AppendLine();
+
+        model.AppendLine("Generals");
+        foreach (var item in vars)
+        {
+            (int dim, int ind) = GetConcrVars[item.Key];
+            switch (dim)
+            {
+                case 0:
+                    var var0 = (Var0)item.Value;
+                    if (var0.IsDiscrete)
+                        model.Append(' ').Append(var0.Key);
+                    break;
+                case 1:
+                    var var1 = (Var1)item.Value;
+                    if (var1.IsDiscrete)
+                    {
+                        for (int i = 0; i < var1.Len1; i++)
+                            model.Append(' ').Append(var1.Key).Append('(').Append(i).Append(')');
+                    }
+                    break;
+                case 2:
+                    if (item.Value is Var2 var2 && var2.IsDiscrete)
+                    {
+                        for (int i = 0; i < var2.Len1; i++)
+                            for (int j = 0; j < var2.Len2; j++)
+                                model.Append(' ').Append(var2.Key).Append('(').Append(i).Append(',').Append(j).Append(')');
+                    }
+                    else if (item.Value is JagVar2 jagvar2 && jagvar2.IsDiscrete)
+                    {
+                        for (int i = 0; i < jagvar2.Len1; i++)
+                        {
+                            int len2 = jagvar2.GetLen2(i);
+                            for (int j = 0; j < len2; j++)
+                                model.Append(' ').Append(jagvar2.Key).Append('(').Append(i).Append(',').Append(j).Append(')');
+                        }
+                    }
+                    break;
+                case 3:
+                    if (item.Value is Var3 var3 && var3.IsDiscrete)
+                    {
+                        for (int i = 0; i < var3.Len1; i++)
+                            for (int j = 0; j < var3.Len2; j++)
+                                for (int k = 0; k < var3.Len3; k++)
+                                    model.Append(' ').Append(var3.Key).Append('(').Append(i).Append(',').Append(j).Append(',').Append(k).Append(')');
+                    }
+                    else if (item.Value is JagVar3 jagvar3 && jagvar3.IsDiscrete)
+                    {
+                        for (int i = 0; i < jagvar3.Len1; i++)
+                        {
+                            int len2 = jagvar3.GetLen2(i);
+                            for (int j = 0; j < len2; j++)
+                            {
+                                int len3 = jagvar3.GetLen3(i, j);
+                                for (int k = 0; k < len3; k++)
+                                    model.Append(' ').Append(jagvar3.Key).Append('(').Append(i).Append(',').Append(j).Append(',').Append(k).Append(')');
+                            }
+                        }
+                    }
+                    break;
+                case 4:
+                    if (item.Value is Var4 var4 && var4.IsDiscrete)
+                    {
+                        for (int i = 0; i < var4.Len1; i++)
+                            for (int j = 0; j < var4.Len2; j++)
+                                for (int k = 0; k < var4.Len3; k++)
+                                    for (int l = 0; l < var4.Len4; l++)
+                                        model.Append(' ').Append(var4.Key).Append('(').Append(i).Append(',').Append(j).Append(',').Append(k).Append(',').Append(l).Append(')');
+                    }
+                    else if (item.Value is JagVar4 jagvar4 && jagvar4.IsDiscrete)
+                    {
+                        for (int i = 0; i < jagvar4.Len1; i++)
+                        {
+                            int len2 = jagvar4.GetLen2(i);
+                            for (int j = 0; j < len2; j++)
+                            {
+                                int len3 = jagvar4.GetLen3(i, j);
+                                for (int k = 0; k < len3; k++)
+                                {
+                                    int len4 = jagvar4.GetLen4(i, j, k);
+                                    for (int l = 0; l < len4; l++)
+                                        model.Append(' ').Append(jagvar4.Key).Append('(').Append(i).Append(',').Append(j).Append(',').Append(k).Append(',').Append(l).Append(')');
+                                }
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+        model.AppendLine();
+
         model.AppendLine("End");
     }
 

@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace MathematicalProgramming;
 
-public class LpSolver : LpBuilder
+public class LpSolver : LpBuilder, IDisposable
 {
     // enum
     enum Solver { Cplex }
@@ -25,7 +25,7 @@ public class LpSolver : LpBuilder
         this.pathSolver = pathSolver;
 
         string rnd = Path.GetRandomFileName();
-        rnd = "problem";
+        //rnd = "problem";
         pathLp = Path.Combine(tmpFolder, rnd + ".lp");
         pathSol = Path.Combine(tmpFolder, rnd + ".sol");
 
@@ -33,8 +33,14 @@ public class LpSolver : LpBuilder
 
         isWindows = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows);
     }
-    static (Opt<DataSet> xmlSol, Opt<string> solutionStatusString, Opt<double>) ResetSoln()
-        => (default, default, default);
+    (Opt<DataSet> xmlSol, Opt<string> solutionStatusString, Opt<double>) ResetSoln()
+    {
+        if (File.Exists(pathSol))
+            File.Delete(pathSol);
+        if (File.Exists(pathLp))
+            File.Delete(pathLp);
+        return (default, default, default);
+    }
     public static Res<LpSolver> NewCplex(string tmpFolder, string pathCplex = "cplex")
     {
         if (tmpFolder == null)
@@ -44,6 +50,10 @@ public class LpSolver : LpBuilder
             return Err<LpSolver>(dirOk.ErrorMessage.Unwrap());
         return new LpSolver(tmpFolder, Solver.Cplex, pathCplex);
     }
+    public void Dispose()
+    {
+        //var _ = ResetSoln();
+    }
 
 
     // method - solve
@@ -51,7 +61,7 @@ public class LpSolver : LpBuilder
     {
         return solver switch
         {
-            Solver.Cplex => SolveCplex(builtModel),
+            Solver.Cplex => SolveCplex(builtModel.Replace('*', ' ')),
             _ => false,
         };
     }
@@ -66,11 +76,18 @@ public class LpSolver : LpBuilder
             $"write \"{pathSol}\" sol",
         };
         string arguments =
-            (isWindows ? string.Join(' ', commands.Select(c => "-c " + c))
+            (true ? string.Join(' ', commands.Select(c => "-c " + c))
                         : string.Join(' ', commands));
+        Console.WriteLine("ARGS: " + arguments);
 
         using var exec = new Execution();
-        var write = Try(() => File.WriteAllText(pathLp, builtModel.ToString()));
+        // todo: fix this!
+        var cleanModel = builtModel
+            .Replace("1,7976931348623157E+308", "inf")
+            .Replace('*', ' ')
+            .Replace("-0", "0")
+            ;
+        var write = Try(() => File.WriteAllText(pathLp, cleanModel.ToString()));
         if (write.IsErr)
             return Err<bool>("Failed to write the lp file. " + write.ErrorMessage.Unwrap());
 
@@ -116,7 +133,10 @@ public class LpSolver : LpBuilder
     }
     static bool IsSolved(string solutionStatusString)
     {
-        return solutionStatusString == "optimal";
+        return solutionStatusString == "optimal"
+            || solutionStatusString == "integer optimal solution"
+            || solutionStatusString == "integer optimal, tolerance"
+            || solutionStatusString.Contains("optimal");
     }
     class Execution : IDisposable
     {
@@ -199,7 +219,7 @@ public class LpSolver : LpBuilder
             int i = int.Parse(sind);
             arr[i] = double.Parse((string)row["value"]);
         }
-        return arr.ToArray();
+        return arr;
     }
     public override double[][] GetVal2(string keyVar2, int len1, int len2)
     {
