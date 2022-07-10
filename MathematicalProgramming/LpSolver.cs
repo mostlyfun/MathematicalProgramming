@@ -9,7 +9,6 @@ public class LpSolver : LpBuilder, IDisposable
     // enum
     enum Solver { Cplex }
     // data
-    readonly bool isWindows;
     readonly Solver solver;
     readonly string pathSolver;
     readonly string pathLp, pathSol;
@@ -25,13 +24,10 @@ public class LpSolver : LpBuilder, IDisposable
         this.pathSolver = pathSolver;
 
         string rnd = Path.GetRandomFileName();
-        //rnd = "problem";
         pathLp = Path.Combine(tmpFolder, rnd + ".lp");
         pathSol = Path.Combine(tmpFolder, rnd + ".sol");
 
         (dsSol, SolutionStatusString, ObjectiveValue) = ResetSoln();
-
-        isWindows = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows);
     }
     (Opt<DataSet> xmlSol, Opt<string> solutionStatusString, Opt<double>) ResetSoln()
     {
@@ -52,7 +48,7 @@ public class LpSolver : LpBuilder, IDisposable
     }
     public void Dispose()
     {
-        //var _ = ResetSoln();
+        var _ = ResetSoln();
     }
 
 
@@ -76,7 +72,7 @@ public class LpSolver : LpBuilder, IDisposable
             $"write \"{pathSol}\" sol",
         };
         string arguments =
-            (true ? string.Join(' ', commands.Select(c => "-c " + c))
+            (false ? string.Join(' ', commands.Select(c => "-c " + c))
                         : string.Join(' ', commands));
         Console.WriteLine("ARGS: " + arguments);
 
