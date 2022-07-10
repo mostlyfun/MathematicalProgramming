@@ -464,7 +464,7 @@ public class CplexBuilder : ModelBuilder<Cplex, ILinearNumExpr, INumVar>
 
     // method
     protected override Res<bool> Solve(Cplex builtModel)
-        => TryMap(() => { builtModel.Solve(); return true; });
+        => TryMap(() => builtModel.Solve());
 
 
     // method - get - value
