@@ -463,41 +463,41 @@ public class CplexBuilder : ModelBuilder<Cplex, ILinearNumExpr, INumVar>
 
 
     // method
-    protected override bool Solve(Cplex builtModel)
-        => builtModel.Solve();
+    protected override Res<bool> Solve(Cplex builtModel)
+        => TryMap(() => { builtModel.Solve(); return true; });
 
 
     // method - get - value
     public override double GetVal0(string keyVar0)
         => Cplex.GetValue(GetVar0(keyVar0));
-    public override double[] GetVal1(string keyVar1)
+    public override double[] GetVal1(string keyVar1, int len1)
         => Cplex.GetValues(GetVar1(keyVar1));
-    public override double[][] GetVal2(string keyVar2)
+    public override double[][] GetVal2(string keyVar2, int len1, int len2)
     {
         var var = GetVar2(keyVar2);
         return var.Select(x1 => Cplex.GetValues(x1)).ToArray();
     }
-    public override double[][] GetJagVal2(string keyJagVar2)
+    public override double[][] GetJagVal2(string keyJagVar2, int len1, Func<int, int> getLen2)
     {
         var var = GetJagVar2(keyJagVar2);
         return var.Select(x1 => Cplex.GetValues(x1)).ToArray();
     }
-    public override double[][][] GetVal3(string keyVar3)
+    public override double[][][] GetVal3(string keyVar3, int len1, int len2, int len3)
     {
         var var = GetVar3(keyVar3);
         return var.Select(x2 => x2.Select(x1 => Cplex.GetValues(x1)).ToArray()).ToArray();
     }
-    public override double[][][] GetJagVal3(string keyJagVar3)
+    public override double[][][] GetJagVal3(string keyJagVar3, int len1, Func<int, int> getLen2, Func<int, int, int> getLen3)
     {
         var var = GetJagVar3(keyJagVar3);
         return var.Select(x2 => x2.Select(x1 => Cplex.GetValues(x1)).ToArray()).ToArray();
     }
-    public override double[][][][] GetVal4(string keyVar4)
+    public override double[][][][] GetVal4(string keyVar4, int len1, int len2, int len3, int len4)
     {
         var var = GetVar4(keyVar4);
         return var.Select(x3 => x3.Select(x2 => x2.Select(x1 => Cplex.GetValues(x1)).ToArray()).ToArray()).ToArray();
     }
-    public override double[][][][] GetJagVal4(string keyJagVar4)
+    public override double[][][][] GetJagVal4(string keyJagVar4, int len1, Func<int, int> getLen2, Func<int, int, int> getLen3, Func<int, int, int, int> getLen4)
     {
         var var = GetJagVar4(keyJagVar4);
         return var.Select(x3 => x3.Select(x2 => x2.Select(x1 => Cplex.GetValues(x1)).ToArray()).ToArray()).ToArray();

@@ -7,4 +7,4 @@ global using System.Linq;
 global using System.Text;
 global using static MathematicalProgramming.Extensions;
 global using MathematicalProgramming;
-global using MathematicalProgrammingCplex;
+//global using MathematicalProgrammingCplex;

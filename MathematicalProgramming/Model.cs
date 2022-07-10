@@ -415,13 +415,15 @@ public class Model
     // method - solve
     public M Build<M, C, V>(ModelBuilder<M, C, V> builder)
         => builder.Build(this);
-    public (M BuiltModel, bool IsSolved) BuildAndSolve<M,C,V>(ModelBuilder<M,C,V> builder)
+    public Res<(M BuiltModel, bool IsSolved)> BuildAndSolve<M,C,V>(ModelBuilder<M,C,V> builder)
     {
         var m = builder.Build(this);
-        bool solved = builder.Solve(m);
-        return (m, solved);
+        var resSolved = builder.Solve(m);
+        if (resSolved.IsErr)
+            return Err<(M BuiltModel, bool IsSolved)>(resSolved.ErrorMessage.Unwrap());
+        return (m, resSolved.Unwrap());
     }
-    public bool Solve<M, C, V>(ModelBuilder<M, C, V> builder)
+    public Res<bool> Solve<M, C, V>(ModelBuilder<M, C, V> builder)
     {
         var m = builder.Build(this);
         return builder.Solve(m);

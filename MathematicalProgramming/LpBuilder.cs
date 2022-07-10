@@ -109,7 +109,7 @@ public class LpBuilder : ModelBuilder<StringBuilder, StringBuilder, string>
     }
     protected internal override void AddVarBounds(StringBuilder model, Dictionary<string, IVar> vars)
     {
-        model.AppendLine("Bounds:");
+        model.AppendLine("Bounds");
         foreach (var item in vars)
         {
             (int dim, int ind) = GetConcrVars[item.Key];
@@ -321,17 +321,17 @@ public class LpBuilder : ModelBuilder<StringBuilder, StringBuilder, string>
     }
 
     // method
-    protected internal override bool Solve(StringBuilder builtModel)
+    protected internal override Res<bool> Solve(StringBuilder builtModel)
         => true;
 
 
     // method - get - value
     public override double GetVal0(string keyVar0) => 0;
-    public override double[] GetVal1(string keyVar1) => Array.Empty<double>();
-    public override double[][] GetVal2(string keyVar2) => Array.Empty<double[]>();
-    public override double[][] GetJagVal2(string keyJagVar2) => Array.Empty<double[]>();
-    public override double[][][] GetVal3(string keyVar3) => Array.Empty<double[][]>();
-    public override double[][][] GetJagVal3(string keyJagVar3) => Array.Empty<double[][]>();
-    public override double[][][][] GetVal4(string keyVar4) => Array.Empty<double[][][]>();
-    public override double[][][][] GetJagVal4(string keyJagVar4) => Array.Empty<double[][][]>();
+    public override double[] GetVal1(string keyVar1, int len1) => Array.Empty<double>();
+    public override double[][] GetVal2(string keyVar2, int len1, int len2) => Array.Empty<double[]>();
+    public override double[][] GetJagVal2(string keyJagVar2, int len1, Func<int, int> getLen2) => Array.Empty<double[]>();
+    public override double[][][] GetVal3(string keyVar3, int len1, int len2, int len3) => Array.Empty<double[][]>();
+    public override double[][][] GetJagVal3(string keyJagVar3, int len1, Func<int, int> getLen2, Func<int, int, int> getLen3) => Array.Empty<double[][]>();
+    public override double[][][][] GetVal4(string keyVar4, int len1, int len2, int len3, int len4) => Array.Empty<double[][][]>();
+    public override double[][][][] GetJagVal4(string keyJagVar4, int len1, Func<int, int> getLen2, Func<int, int, int> getLen3, Func<int, int, int, int> getLen4) => Array.Empty<double[][][]>();
 }

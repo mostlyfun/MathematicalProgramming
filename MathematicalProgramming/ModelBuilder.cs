@@ -506,7 +506,7 @@ public abstract class ModelBuilder<M, C, V>
 
 
     // method
-    protected internal abstract bool Solve(M builtModel);
+    protected internal abstract Res<bool> Solve(M builtModel);
 
 
     // method - get - var
@@ -546,19 +546,19 @@ public abstract class ModelBuilder<M, C, V>
 
     // method - get - value
     public abstract double GetVal0(string keyVar0);
-    public abstract double[] GetVal1(string keyVar1);
-    public abstract double[][] GetVal2(string keyVar2);
-    public abstract double[][] GetJagVal2(string keyJagVar2);
-    public abstract double[][][] GetVal3(string keyVar3);
-    public abstract double[][][] GetJagVal3(string keyJagVar3);
-    public abstract double[][][][] GetVal4(string keyVar4);
-    public abstract double[][][][] GetJagVal4(string keyJagVar4);
+    public abstract double[] GetVal1(string keyVar1, int len1);
+    public abstract double[][] GetVal2(string keyVar2, int len1, int len2);
+    public abstract double[][] GetJagVal2(string keyJagVar2, int len1, Func<int, int> getLen2);
+    public abstract double[][][] GetVal3(string keyVar3, int len1, int len2, int len3);
+    public abstract double[][][] GetJagVal3(string keyJagVar3, int len1, Func<int, int> getLen2, Func<int, int, int> getLen3);
+    public abstract double[][][][] GetVal4(string keyVar4, int len1, int len2, int len3, int len4);
+    public abstract double[][][][] GetJagVal4(string keyJagVar4, int len1, Func<int, int> getLen2, Func<int, int, int> getLen3, Func<int, int, int, int> getLen4);
     public double GetVal0(Var0 var) => GetVal0(var.Key);
-    public double[] GetVal1(Var1 var) => GetVal1(var.Key);
-    public double[][] GetVal2(Var2 var) => GetVal2(var.Key);
-    public double[][] GetJagVal2(Var2 var) => GetJagVal2(var.Key);
-    public double[][][] GetVal3(Var3 var) => GetVal3(var.Key);
-    public double[][][] GetJagVal3(Var3 var) => GetJagVal3(var.Key);
-    public double[][][][] GetVal4(Var4 var) => GetVal4(var.Key);
-    public double[][][][] GetJagVal4(Var4 var) => GetJagVal4(var.Key);
+    public double[] GetVal1(Var1 var) => GetVal1(var.Key, var.Len1);
+    public double[][] GetVal2(Var2 var) => GetVal2(var.Key, var.Len1, var.Len2);
+    public double[][] GetJagVal2(JagVar2 var) => GetJagVal2(var.Key, var.Len1, var.GetLen2);
+    public double[][][] GetVal3(Var3 var) => GetVal3(var.Key, var.Len1, var.Len2, var.Len3);
+    public double[][][] GetJagVal3(JagVar3 var) => GetJagVal3(var.Key, var.Len1, var.GetLen2, var.GetLen3);
+    public double[][][][] GetVal4(Var4 var) => GetVal4(var.Key, var.Len1, var.Len2, var.Len3, var.Len4);
+    public double[][][][] GetJagVal4(JagVar4 var) => GetJagVal4(var.Key, var.Len1, var.GetLen2, var.GetLen3, var.GetLen4);
 }

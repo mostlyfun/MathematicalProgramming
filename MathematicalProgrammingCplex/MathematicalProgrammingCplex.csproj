@@ -12,15 +12,15 @@
 
   <ItemGroup>
     <PackageReference Include="Fun.Pipe" Version="0.0.1" />
-    <PackageReference Include="MathematicalProgramming" Version="0.0.1" />
+    <PackageReference Include="MathematicalProgramming" Version="0.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="ILOG.Concert">
-      <HintPath>..\..\..\dotnet\cplex-lib\ILOG.Concert.dll</HintPath>
+      <HintPath>..\..\..\..\cplexlib\2210\ILOG.Concert.dll</HintPath>
     </Reference>
     <Reference Include="ILOG.CPLEX">
-      <HintPath>..\..\..\dotnet\cplex-lib\ILOG.CPLEX.dll</HintPath>
+      <HintPath>..\..\..\..\cplexlib\2210\ILOG.CPLEX.dll</HintPath>
     </Reference>
   </ItemGroup>
 
