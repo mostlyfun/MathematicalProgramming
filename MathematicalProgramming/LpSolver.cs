@@ -72,7 +72,7 @@ public class LpSolver : LpBuilder, IDisposable
             $"write \"{pathSol}\" sol",
         };
         string arguments =
-            (false ? string.Join(' ', commands.Select(c => "-c " + c))
+            (true ? string.Join(' ', commands.Select(c => "-c " + c))
                         : string.Join(' ', commands));
         Console.WriteLine("ARGS: " + arguments);
 

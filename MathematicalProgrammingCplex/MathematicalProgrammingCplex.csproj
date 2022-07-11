@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Fun.Pipe" Version="0.0.1" />
-    <PackageReference Include="MathematicalProgramming" Version="0.0.6" />
+    <PackageReference Include="MathematicalProgramming" Version="0.0.7" />
   </ItemGroup>
 
   <ItemGroup>
